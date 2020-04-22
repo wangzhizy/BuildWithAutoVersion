@@ -28,6 +28,12 @@ android {
         debug{
             signingConfig signingConfigs.release
         }
+        beta{
+            signingConfig signingConfigs.release
+        }
+        pre{
+            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

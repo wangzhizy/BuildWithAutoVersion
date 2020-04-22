@@ -54,22 +54,15 @@ ext {
     buildConfigFileName = "ersion"
     buildTaskList = [
             [
-                    taskName      : "buildDevTask",
-                    dependTaskName: "assembleRelease",
-                    saveFiledName : "devVersion",
-                    prefix        : "_DEV",
-                    postfix       : "_${new SimpleDateFormat("YYMMdd").format(new Date())}"
-            ],
-            [
                     taskName      : "buildBetaTask",
-                    dependTaskName: "assembleRelease",
+                    dependTaskName: "assembleBeta",
                     saveFiledName : "betaVersion",
                     prefix        : "_Beta",
                     postfix       : "_${new SimpleDateFormat("YYMMdd").format(new Date())}"
             ],
             [
                     taskName      : "buildPreTask",
-                    dependTaskName: "assembleRelease",
+                    dependTaskName: "assemblePre",
                     saveFiledName : "preVersion",
                     prefix        : "_PRE",
                     postfix       : "_${new SimpleDateFormat("YYMMdd").format(new Date())}"
