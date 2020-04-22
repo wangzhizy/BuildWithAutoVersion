@@ -1,0 +1,2 @@
+include ':app', ':buildwithautoversionplugin'
+rootProject.name='BuildWithAutoVersion'

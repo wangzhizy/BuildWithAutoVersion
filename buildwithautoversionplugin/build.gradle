@@ -1,0 +1,58 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+//groupID
+def POM_GROUP_ID = "com.wangzhi.plugin"
+//artifactID
+def POM_ARTIFACT_ID = "buildwithautoversion"
+//versionName
+def POM_VERSION_NAME = "1.0.0-SNAPSHOT-2"
+// 声明变量记录maven库地址
+def mavenRepositoryUrl = ""
+// 判断是发布到正式库,还是snapshots库
+if (!POM_VERSION_NAME.contains("SNAPSHOT")) {
+    println 'RELEASE BUILD'
+    // 下面的库地址指向的是我们私有仓库的Releases 仓库
+    mavenRepositoryUrl = mavenRepositoryReleaseUrl
+} else {
+    println 'SNAPSHOTS BUILD'
+    // 下面的库地址指向的是我们私有仓库的snapshots 仓库
+    mavenRepositoryUrl = mavenRepositorySnapUrl
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri(mavenRepositoryUrl)) {
+                authentication(userName: REPOSITORY_USER_NAME, password: REPOSITORY_PASSWORD)
+            }
+            pom {
+                //修改pom文件（maven的配置文件）
+                version = POM_VERSION_NAME
+                artifactId = POM_ARTIFACT_ID
+                groupId = POM_GROUP_ID
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDir 'src/main/groovy'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
